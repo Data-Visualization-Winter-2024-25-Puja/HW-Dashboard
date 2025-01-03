@@ -1,0 +1,33 @@
+---
+title: "My Dashbord at DACSS"
+bibliography: visual.bib
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard) # always
+```
+
+## Intro {.sidebar}
+
+Preparing the dashboard based on the instructions given at @magallanes_
+reyes_data_2022, and @aden-buie_flexdashboard_2024.
+
+### References
+<div id="refs"></div>
+
+## Column {data-width="450"}
+
+###  Barplot for count of school in the State of Washington locale <!-- a title for plot -->
+
+```{r}
+readRDS("del1Draft.rds")
+```
+
+### Histogram for Distribution of Student Teacher Ratio 
+
+```{r}
+readRDS("del2Draft.rds")
+```
