@@ -26,17 +26,17 @@ library(ggplot2)
 
 base= ggplot(data=mydata) 
 del1Draft= base + 
-  geom_bar(aes(x = LocaleType, fill = LocaleType), stat = "count") +
+  geom_bar(aes(x = LocaleType), stat = "count") +
   labs(
-    title = "Bar Chart of LocaleType",
-    subtitle = "The distribution of different Locale Types in the dataset",
+    title = "Count of Schools in the state of Washington",
+    subtitle = "Distribution of school in different Locale Types",
     x = "Locale Type",
     y = "Count",
     caption = "Source: Instructions given at Magallanes Reyes (2022), and Aden-Buie et al. (2024)."
   ) +
   theme_minimal() +
   
-  annotate("text", x = 3, y = 820, label = "Max count in Suburb", color = "blue", size = 4)
+  annotate("text", x = 3, y = 820, label = "Max 800 in Suburb", color = "blue", size = 4)
   
 del1Draft
 
@@ -50,8 +50,8 @@ saveRDS(del1Draft, file = "del1Draft.rds")
 del2Draft <- ggplot(data = mydata, aes(x = Student.Teacher.Ratio)) +
   geom_histogram(binwidth = 5, fill = "steelblue", color = "black") +
   labs(
-    title = "Distribution of Student.Teacher.Ratio",
-    subtitle = "A visualization of the distribution of the Student.Teacher.Ratio variable",
+    title = "Distribution of Student-Teacher Ratios in Washington State Schools",
+    subtitle = "An analysis of student-teacher ratios based on data from all schools in Washington State",
     x = "Student.Teacher.Ratio",
     y = "Count",
     caption = "Source: Instructions given at Magallanes Reyes (2022), and Aden-Buie et al. (2024)."
@@ -63,6 +63,53 @@ del2Draft
 
 # save del2Draft ----------------------------------------------------------
 saveRDS(del2Draft, file = "del2Draft.rds")
+
+# deliverable 3 ----------------------------------------------------------
+
+library(readxl)
+Arrests <- read_excel("MSP_DFS_Arrests.xlsx")
+View(Arrests)
+
+del3Draft= ggplot(data = Arrests, aes(x = `Arrest Type`, y = Age)) +
+  geom_boxplot() +
+  # Add mean points
+  stat_summary(
+    fun = mean, 
+    geom = "point", 
+    shape = 20, 
+    size = 3, 
+    color = "red"
+  ) +
+  # Add mean values as text
+  stat_summary(
+    fun = mean, 
+    geom = "text", 
+    aes(label = round(..y.., 1)),  # Show mean value rounded to 1 decimal
+    color = "black",
+    vjust = -0.5,  # Position above the mean point
+    size = 3
+  ) +
+  labs(
+    title = "Boxplot of Age of Personal arrested in Massachusetts state",
+    subtitle = "Visualizing age distribution with mean values across different arrest types",
+    x = "Arrest Type",
+    y = "Age",
+    caption = "Source:https://github.com/DACSS-Visual/tabular_bivar_catcat/raw/refs/heads/main/data/MSP%20DFS%20Arrests%2019-20Q1.xlsx"
+  )+
+  annotate(
+    "text", 
+    x = 4, 
+    y = 50, 
+    label = "Avg age of 34.9 arrested with warrent", 
+    color = "blue", 
+    size = 4
+  )+
+  theme_minimal()
+
+del3Draft 
+
+# save del3Draft ----------------------------------------------------------
+saveRDS(del3Draft, file = "del3Draft.rds")
 
 
 
